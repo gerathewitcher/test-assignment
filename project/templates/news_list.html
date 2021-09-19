@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Список новостей
+{% endblock title %}
+
+
+{% block content %}
+{% for news in news_list %}
+<main>
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div class="col shadow-sm">
+          <div class='card shadow-sm'>
+            <img src="{{news.image.url}}" height="255" alt="">
+          </div>
+
+          <div class="card-body">
+            <p class="card-text">{{news.title}}</p>
+
+            {% if news.tags.exists %}
+            <span>
+              Теги:
+              {% for tags in news.tags.all %}
+
+              <a href="{{ tags.get_absolute_url }}">{{tags}}</a>
+              {% endfor %}
+            </span>
+
+            {% endif %}
+
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{{ news.get_absolute_url }}">
+                  <br>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Читать</button>
+                </a>
+              </div>
+              <small class="text-muted">{{news.created}}</small>
+              <small class="text-muted">Просмотров: {{news.views}}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div </main>
+
+  {% endfor %}
+
+  {% endblock content %}
